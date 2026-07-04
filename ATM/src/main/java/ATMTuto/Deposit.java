@@ -5,16 +5,10 @@
 package main.java.ATMTuto;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import javax.swing.JOptionPane;
-import javax.xml.crypto.Data;
 
 /**
  *
@@ -40,14 +34,17 @@ public class Deposit extends javax.swing.JFrame {
     Statement st = null;
     int OldBalalnce;
     private void getBalance(){
-        String query = "Select * from accounttbl where AccNum ="+MyAccNumt+";";
+        String query = "Select Balance from Accounts where AccountNumber ="+MyAccNumt+";";
             try{
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","system");
+                con = DBConnection.getConnection();
+                if (con == null) {
+                    JOptionPane.showMessageDialog(this, "Database connection failed.");
+                    return;
+                }
                 st = con.createStatement();
                 Rs1 = st.executeQuery(query);
                 if(Rs1.next()){
-                    OldBalalnce = Rs1.getInt(9);
+                    OldBalalnce = Rs1.getInt("Balance");
                 }
             }catch(Exception e){
                 JOptionPane.showMessageDialog(this, e);
@@ -256,25 +253,26 @@ public class Deposit extends javax.swing.JFrame {
         AmountTb.setText("");
     }
     
-    String MyDate;
-    
-    public void getDateTime(){
-        LocalDateTime today = LocalDateTime.now();
-        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        MyDate = today.format(formater);
-    }
-    
-    private void depositeMoney(){
+    private void depositeMoney(int newBalance){
         try{
-                getDateTime();
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","system");
-                PreparedStatement Add = con.prepareStatement("insert into transactiontbl (AccNum, Type, Amount, TDate) VALUES (?, ?, ?, ?)");
-                Add.setInt(1, MyAccNumt);
-                Add.setString(2, "Deposit");
-                Add.setString(3, AmountTb.getText());
-                Add.setString(4, MyDate);
-                int row = Add.executeUpdate();
+                con = DBConnection.getConnection();
+                if (con == null) {
+                    JOptionPane.showMessageDialog(this, "Database connection failed.");
+                    return;
+                }
+                
+                PreparedStatement dep = con.prepareStatement("insert into Deposits (AccountNumber, Amount) VALUES (?, ?)");
+                dep.setInt(1, MyAccNumt);
+                dep.setInt(2, Integer.valueOf(AmountTb.getText()));
+                dep.executeUpdate();
+                
+                PreparedStatement tran = con.prepareStatement("insert into Transactions (AccountNumber, TransactionType, Amount, BalanceAfter) VALUES (?, ?, ?, ?)");
+                tran.setInt(1, MyAccNumt);
+                tran.setString(2, "Deposit");
+                tran.setInt(3, Integer.valueOf(AmountTb.getText()));
+                tran.setInt(4, newBalance);
+                tran.executeUpdate();
+                
                 con.close();
             }catch(Exception e){
                 JOptionPane.showMessageDialog(this, e);
@@ -286,16 +284,19 @@ public class Deposit extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Enter Valid Amount!");
             clear();
         }else{
-            String query = "Update accounttbl set Balance=? where AccNum=?";
+            String query = "Update Accounts set Balance=? where AccountNumber=?";
             try{
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","system");
+                con = DBConnection.getConnection();
+                if (con == null) {
+                    JOptionPane.showMessageDialog(this, "Database connection failed.");
+                    return;
+                }
                 PreparedStatement ps = con.prepareStatement(query);
                 ps.setInt(1, OldBalalnce+Integer.valueOf(AmountTb.getText()));
                 ps.setInt(2, MyAccNumt);
                 if(ps.executeUpdate() == 1){
                     JOptionPane.showMessageDialog(this, "Balance Updated");
-                    depositeMoney();
+                    depositeMoney(OldBalalnce+Integer.valueOf(AmountTb.getText()));
                     clear();
                 }else{
                     JOptionPane.showMessageDialog(this, "Missing Information!");

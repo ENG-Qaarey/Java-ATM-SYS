@@ -5,7 +5,6 @@
 package main.java.ATMTuto;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -270,10 +269,13 @@ public class ChangePin extends javax.swing.JFrame {
         }else if( !NewLb.getText().equals(ConfirmLb.getText()) ){
             JOptionPane.showMessageDialog(this, "New Pin and Confirm Pin is Different!");
         }else{
-            String query = "Update accounttbl set Pin=? where AccNum=?";
+            String query = "Update Accounts set Pin=? where AccountNumber=?";
             try{
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","system");
+                con = DBConnection.getConnection();
+                if (con == null) {
+                    JOptionPane.showMessageDialog(this, "Database connection failed.");
+                    return;
+                }
                 PreparedStatement ps = con.prepareStatement(query);
                 ps.setString(1, NewLb.getText());
                 ps.setInt(2, MyAccNumt);

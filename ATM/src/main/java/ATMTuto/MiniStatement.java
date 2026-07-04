@@ -5,13 +5,12 @@
 package main.java.ATMTuto;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.apache.commons.dbutils.DbUtils;
+
 
 
 /**
@@ -40,10 +39,13 @@ public class MiniStatement extends javax.swing.JFrame {
     Statement st = null;
     
     private void displayTransaction(){
-        String query = "Select * from transactiontbl where AccNum ="+MyAccNumt+";";
+        String query = "Select * from Transactions where AccountNumber ="+MyAccNumt+";";
             try{
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","system");
+                con = DBConnection.getConnection();
+                if (con == null) {
+                    JOptionPane.showMessageDialog(this, "Database connection failed.");
+                    return;
+                }
                 st = con.createStatement();
                 Rs = st.executeQuery(query);
                 
@@ -55,14 +57,15 @@ public class MiniStatement extends javax.swing.JFrame {
                     colName[i] = rsmd.getColumnName(i+1);
                 }
                 model.setColumnIdentifiers(colName);
-                String Tid, AccNum, Type, Amount, TDate;
+                String TransactionID, AccountNumber, TransactionType, Amount, BalanceAfter, TransactionDate;
                 while(Rs.next()){
-                    Tid = Rs.getString(1);
-                    AccNum = Rs.getString(2);
-                    Type = Rs.getString(3);
+                    TransactionID = Rs.getString(1);
+                    AccountNumber = Rs.getString(2);
+                    TransactionType = Rs.getString(3);
                     Amount = Rs.getString(4);
-                    TDate = Rs.getString(5);
-                    String[] row = {Tid, AccNum, Type, Amount, TDate};
+                    BalanceAfter = Rs.getString(5);
+                    TransactionDate = Rs.getString(6);
+                    String[] row = {TransactionID, AccountNumber, TransactionType, Amount, BalanceAfter, TransactionDate};
                     model.addRow(row);
                 }
                st.close(); 

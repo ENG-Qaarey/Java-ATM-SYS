@@ -5,15 +5,9 @@
 package main.java.ATMTuto;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,14 +34,17 @@ public class Withdraw extends javax.swing.JFrame {
     int OldBalalnce;
     
     private void getBalance(){
-        String query = "Select * from accounttbl where AccNum ="+MyAccNumt+";";
+        String query = "Select Balance from Accounts where AccountNumber ="+MyAccNumt+";";
             try{
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","system");
+                con = DBConnection.getConnection();
+                if (con == null) {
+                    JOptionPane.showMessageDialog(this, "Database connection failed.");
+                    return;
+                }
                 st = con.createStatement();
                 Rs1 = st.executeQuery(query);
                 if(Rs1.next()){
-                    OldBalalnce = Rs1.getInt(9);
+                    OldBalalnce = Rs1.getInt("Balance");
                     BalanceLb.setText(""+OldBalalnce);
                 }
             }catch(Exception e){
@@ -78,6 +75,7 @@ public class Withdraw extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         BalanceLb = new javax.swing.JLabel();
+        BackLb = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(360, 180));
@@ -189,6 +187,15 @@ public class Withdraw extends javax.swing.JFrame {
         BalanceLb.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         BalanceLb.setForeground(new java.awt.Color(0, 0, 204));
 
+        BackLb.setFont(new java.awt.Font("Microsoft YaHei", 0, 18)); // NOI18N
+        BackLb.setForeground(new java.awt.Color(0, 0, 255));
+        BackLb.setText("BACK");
+        BackLb.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BackLbMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -213,13 +220,15 @@ public class Withdraw extends javax.swing.JFrame {
                         .addGap(325, 325, 325)
                         .addComponent(jLabel10))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(351, 351, 351)
-                        .addComponent(LogoutBtn))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(278, 278, 278)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BalanceLb, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(BalanceLb, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(237, 237, 237)
+                        .addComponent(LogoutBtn)
+                        .addGap(89, 89, 89)
+                        .addComponent(BackLb)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -238,9 +247,11 @@ public class Withdraw extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addGap(53, 53, 53)
                 .addComponent(balanceBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(LogoutBtn)
                 .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LogoutBtn)
+                    .addComponent(BackLb))
+                .addGap(11, 11, 11)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -275,25 +286,26 @@ public class Withdraw extends javax.swing.JFrame {
         AmountTb.setText("");
     }
     
-    String MyDate;
-    
-    public void getDateTime(){
-        LocalDateTime today = LocalDateTime.now();
-        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        MyDate = today.format(formater);
-    }
-    
-    private void withdrawMoney(){
+    private void withdrawMoney(int newBalance){
         try{
-                getDateTime();
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","system");
-                PreparedStatement Add = con.prepareStatement("insert into transactiontbl (AccNum, Type, Amount, TDate) VALUES (?, ?, ?, ?)");
-                Add.setInt(1, MyAccNumt);
-                Add.setString(2, "Withdraw");
-                Add.setString(3, AmountTb.getText());
-                Add.setString(4, MyDate);
-                int row = Add.executeUpdate();
+                con = DBConnection.getConnection();
+                if (con == null) {
+                    JOptionPane.showMessageDialog(this, "Database connection failed.");
+                    return;
+                }
+                
+                PreparedStatement dep = con.prepareStatement("insert into Withdraws (AccountNumber, Amount) VALUES (?, ?)");
+                dep.setInt(1, MyAccNumt);
+                dep.setInt(2, Integer.valueOf(AmountTb.getText()));
+                dep.executeUpdate();
+                
+                PreparedStatement tran = con.prepareStatement("insert into Transactions (AccountNumber, TransactionType, Amount, BalanceAfter) VALUES (?, ?, ?, ?)");
+                tran.setInt(1, MyAccNumt);
+                tran.setString(2, "Withdraw");
+                tran.setInt(3, Integer.valueOf(AmountTb.getText()));
+                tran.setInt(4, newBalance);
+                tran.executeUpdate();
+                
                 con.close();
             }catch(Exception e){
                 JOptionPane.showMessageDialog(this, e);
@@ -308,16 +320,19 @@ public class Withdraw extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Insufficient Balaance!");
             clear();
         }else{
-            String query = "Update accounttbl set Balance=? where AccNum=?";
+            String query = "Update Accounts set Balance=? where AccountNumber=?";
             try{
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","system");
+                con = DBConnection.getConnection();
+                if (con == null) {
+                    JOptionPane.showMessageDialog(this, "Database connection failed.");
+                    return;
+                }
                 PreparedStatement ps = con.prepareStatement(query);
                 ps.setInt(1, OldBalalnce-Integer.valueOf(AmountTb.getText()));
                 ps.setInt(2, MyAccNumt);
                 if(ps.executeUpdate() == 1){
                     JOptionPane.showMessageDialog(this, "Withdraw Successful.");
-                    withdrawMoney();
+                    withdrawMoney(OldBalalnce-Integer.valueOf(AmountTb.getText()));
                     clear();
                     getBalance();
                 }else{
@@ -332,6 +347,11 @@ public class Withdraw extends javax.swing.JFrame {
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         System.exit(1);
     }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void BackLbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackLbMouseClicked
+        this.dispose();
+        new MainMenu(MyAccNumt).setVisible(true);
+    }//GEN-LAST:event_BackLbMouseClicked
 
     /**
      * @param args the command line arguments
@@ -370,6 +390,7 @@ public class Withdraw extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AmountTb;
+    private javax.swing.JLabel BackLb;
     private javax.swing.JLabel BalanceLb;
     private javax.swing.JLabel LogoutBtn;
     private javax.swing.JButton balanceBtn;

@@ -5,7 +5,6 @@
 package main.java.ATMTuto;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -36,14 +35,17 @@ public class Balance extends javax.swing.JFrame {
     Statement st = null;
     int OldBalalnce;
     private void getBalance(){
-        String query = "Select * from accounttbl where AccNum ="+MyAccNumt+";";
+        String query = "Select Balance from Accounts where AccountNumber ="+MyAccNumt+";";
             try{
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","system");
+                con = DBConnection.getConnection();
+                if (con == null) {
+                    JOptionPane.showMessageDialog(this, "Database connection failed.");
+                    return;
+                }
                 st = con.createStatement();
                 Rs1 = st.executeQuery(query);
                 if(Rs1.next()){
-                    OldBalalnce = Rs1.getInt(9);
+                    OldBalalnce = Rs1.getInt("Balance");
                     BallanceLb.setText(""+OldBalalnce);
                 }
             }catch(Exception e){

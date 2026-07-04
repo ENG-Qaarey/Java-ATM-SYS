@@ -5,7 +5,6 @@
 package main.java.ATMTuto;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -22,6 +21,10 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        UAccNumTb.setOpaque(true);
+        UAccNumTb.setBackground(java.awt.Color.WHITE);
+        PasswordTb.setOpaque(true);
+        PasswordTb.setBackground(java.awt.Color.WHITE);
     }
 
     /**
@@ -255,14 +258,18 @@ public class Login extends javax.swing.JFrame {
         if(UAccNumTb.getText().isEmpty() || PasswordTb.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Enter Account and Pin Number.");
         }else{
-            String query = "Select * from accounttbl where AccNum = '"+UAccNumTb.getText()+"' and Pin = '"+PasswordTb.getText()+"';";
             try{
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","system");
-                st = con.createStatement();
-                Rs = st.executeQuery(query);
+                con = DBConnection.getConnection();
+                if (con == null) {
+                    JOptionPane.showMessageDialog(this, "Database connection failed.");
+                    return;
+                }
+                PreparedStatement ps = con.prepareStatement("Select AccountNumber from Accounts where AccountNumber = ? and Pin = ?");
+                ps.setString(1, UAccNumTb.getText());
+                ps.setString(2, PasswordTb.getText());
+                Rs = ps.executeQuery();
                 if(Rs.next()){
-                    new MainMenu(Rs.getInt(1)).setVisible(true);
+                    new MainMenu(Rs.getInt("AccountNumber")).setVisible(true);
                     this.dispose();
                 }else{
                     JOptionPane.showMessageDialog(this, "Inavlid Account Number or Pin!");
@@ -285,35 +292,14 @@ public class Login extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        SplashScreen splash = new SplashScreen();
+        splash.setVisible(true);
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
+        splash.dispose();
+        new Login().setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
