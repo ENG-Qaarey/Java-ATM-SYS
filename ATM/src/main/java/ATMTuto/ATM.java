@@ -1,5 +1,5 @@
 
-package main.java.ATMTuto;
+package ATMTuto;
 
 /**
  *

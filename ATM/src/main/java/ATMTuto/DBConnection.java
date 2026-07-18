@@ -1,4 +1,4 @@
-package main.java.ATMTuto;
+package ATMTuto;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

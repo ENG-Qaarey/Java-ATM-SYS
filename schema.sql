@@ -4,7 +4,13 @@ USE atmdb;
 CREATE TABLE Accounts (
     AccountNumber INT PRIMARY KEY,
     FullName VARCHAR(100),
+    FatherName VARCHAR(100),
+    DOB VARCHAR(30),
     Pin INT,
+    Education VARCHAR(50),
+    Occupation VARCHAR(100),
+    Phone VARCHAR(30),
+    Address VARCHAR(255),
     Balance INT DEFAULT 0,
     IsActive BOOLEAN DEFAULT TRUE,
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -43,3 +49,8 @@ CREATE TABLE Admins (
     FullName VARCHAR(100),
     IsActive BOOLEAN DEFAULT TRUE
 );
+
+-- Default admin for the shared Login page (username / password)
+INSERT INTO Admins (Username, Password, FullName, IsActive)
+VALUES ('admin', 'admin123', 'System Admin', TRUE)
+ON DUPLICATE KEY UPDATE Username = Username;

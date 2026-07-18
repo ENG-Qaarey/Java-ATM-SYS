@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TransactionsReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb000002-0002-4002-8002-000000000001">
+	<property name="ireport.zoom" value="1.0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     Transactions.`TransactionID` AS Transactions_TransactionID,
+     Transactions.`AccountNumber` AS Transactions_AccountNumber,
+     Transactions.`TransactionType` AS Transactions_TransactionType,
+     Transactions.`Amount` AS Transactions_Amount,
+     Transactions.`BalanceAfter` AS Transactions_BalanceAfter
+FROM
+     `Transactions` Transactions
+ORDER BY Transactions.`TransactionDate` DESC]]>
+	</queryString>
+	<field name="Transactions_TransactionID" class="java.lang.Integer"/>
+	<field name="Transactions_AccountNumber" class="java.lang.Integer"/>
+	<field name="Transactions_TransactionType" class="java.lang.String"/>
+	<field name="Transactions_Amount" class="java.lang.Integer"/>
+	<field name="Transactions_BalanceAfter" class="java.lang.Integer"/>
+	<variable name="TotalAmount" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{Transactions_Amount}]]></variableExpression>
+	</variable>
+	<variable name="TxCount" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{Transactions_TransactionID}]]></variableExpression>
+	</variable>
+	<title>
+		<band height="110">
+			<rectangle>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="110" backcolor="#0B3D91" uuid="bb000002-0002-4002-8002-000000000002"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="-20" y="78" width="595" height="12" backcolor="#00A3E0" uuid="bb000002-0002-4002-8002-000000000003"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="8" width="555" height="18" forecolor="#A8D5FF" uuid="bb000002-0002-4002-8002-000000000004"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[WORLD BANK  •  ATM MANAGEMENT SYSTEM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="555" height="34" forecolor="#FFFFFF" uuid="bb000002-0002-4002-8002-000000000005"/>
+				<textElement textAlignment="Center">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TRANSACTIONS REPORT]]></text>
+			</staticText>
+			<textField pattern="EEEE, dd MMMM yyyy">
+				<reportElement x="0" y="64" width="555" height="14" forecolor="#D6EBFF" uuid="bb000002-0002-4002-8002-000000000006"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="10"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="28">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="28" backcolor="#0B3D91" uuid="bb000002-0002-4002-8002-000000000007"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="4" width="60" height="20" forecolor="#FFFFFF" uuid="bb000002-0002-4002-8002-000000000008"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="4" width="90" height="20" forecolor="#FFFFFF" uuid="bb000002-0002-4002-8002-000000000009"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACCOUNT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="4" width="150" height="20" forecolor="#FFFFFF" uuid="bb000002-0002-4002-8002-00000000000a"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TYPE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="4" width="110" height="20" forecolor="#FFFFFF" uuid="bb000002-0002-4002-8002-00000000000b"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AMOUNT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="4" width="145" height="20" forecolor="#FFFFFF" uuid="bb000002-0002-4002-8002-00000000000c"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BALANCE AFTER]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="24" backcolor="#F0F7FF" uuid="bb000002-0002-4002-8002-00000000000d">
+					<printWhenExpression><![CDATA[$V{REPORT_COUNT} % 2 == 1]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="24" backcolor="#FFFFFF" uuid="bb000002-0002-4002-8002-00000000000e">
+					<printWhenExpression><![CDATA[$V{REPORT_COUNT} % 2 == 0]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="2" width="60" height="20" uuid="bb000002-0002-4002-8002-00000000000f"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Transactions_TransactionID}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="60" y="2" width="90" height="20" uuid="bb000002-0002-4002-8002-000000000010"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Transactions_AccountNumber}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="150" y="2" width="150" height="20" forecolor="#0B3D91" uuid="bb000002-0002-4002-8002-000000000011"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Transactions_TransactionType}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="300" y="2" width="110" height="20" uuid="bb000002-0002-4002-8002-000000000012"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Transactions_Amount}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="410" y="2" width="145" height="20" uuid="bb000002-0002-4002-8002-000000000013"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Transactions_BalanceAfter}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="28">
+			<line>
+				<reportElement x="0" y="2" width="555" height="1" forecolor="#00A3E0" uuid="bb000002-0002-4002-8002-000000000018"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="8" width="280" height="14" forecolor="#666666" uuid="bb000002-0002-4002-8002-000000000019"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Confidential • World Bank ATM Admin]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="8" width="255" height="14" forecolor="#666666" uuid="bb000002-0002-4002-8002-00000000001a"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="70">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="10" width="555" height="50" backcolor="#E8F4FF" uuid="bb000002-0002-4002-8002-000000000014"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineColor="#0B3D91"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="12" y="18" width="200" height="18" forecolor="#0B3D91" uuid="bb000002-0002-4002-8002-000000000015"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUMMARY]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="12" y="38" width="250" height="16" uuid="bb000002-0002-4002-8002-000000000016"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total Transactions: " + $V{TxCount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="38" width="260" height="16" forecolor="#0B3D91" uuid="bb000002-0002-4002-8002-000000000017"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total Amount: " + $V{TotalAmount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+	
+</jasperReport>

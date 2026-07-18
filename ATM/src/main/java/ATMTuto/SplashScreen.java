@@ -1,10 +1,9 @@
-package main.java.ATMTuto;
+package ATMTuto;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
@@ -22,7 +21,7 @@ public class SplashScreen extends JWindow {
         mainPanel.setLayout(null);
 
         JPanel headerPanel = new JPanel();
-        headerPanel.setBackground(new Color(255, 102, 51));
+        headerPanel.setBackground(new Color(0, 102, 204));
         headerPanel.setBounds(0, 0, 600, 180);
         headerPanel.setLayout(null);
 
@@ -42,35 +41,29 @@ public class SplashScreen extends JWindow {
 
         JLabel iconLabel = new JLabel("\u2603", SwingConstants.CENTER);
         iconLabel.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 72));
-        iconLabel.setForeground(new Color(255, 102, 51));
+        iconLabel.setForeground(new Color(0, 102, 204));
         iconLabel.setBounds(0, 200, 600, 80);
         mainPanel.add(iconLabel);
 
         JLabel loadingLabel = new JLabel("Loading...", SwingConstants.CENTER);
         loadingLabel.setFont(new Font("Microsoft YaHei", Font.PLAIN, 16));
-        loadingLabel.setForeground(new Color(255, 102, 51));
+        loadingLabel.setForeground(new Color(0, 102, 204));
         loadingLabel.setBounds(0, 290, 600, 30);
         mainPanel.add(loadingLabel);
-
-        JLabel clickLabel = new JLabel("Click anywhere to continue", SwingConstants.CENTER);
-        clickLabel.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
-        clickLabel.setForeground(new Color(150, 150, 150));
-        clickLabel.setBounds(0, 320, 600, 20);
-        mainPanel.add(clickLabel);
 
         getContentPane().add(mainPanel);
         setSize(600, 380);
         setLocationRelativeTo(null);
 
+        // Only dismiss splash — caller opens Login to avoid duplicate windows
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new Login().setVisible(true);
             }
         });
     }
 
-    public static void main(String[] args) {
+    public static void main(String args[]) {
         SplashScreen splash = new SplashScreen();
         splash.setVisible(true);
         try {

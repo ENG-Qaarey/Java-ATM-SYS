@@ -1,0 +1,3 @@
+All JasperReports 5.6.0 jars copied from:
+  D:\LocalD\java2\javareport\Reports tool\jasperreports-5.6.0\dist
+  D:\LocalD\java2\javareport\Reports tool\jasperreports-5.6.0\lib

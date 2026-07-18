@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package main.java.ATMTuto;
+package ATMTuto;
 
+import java.awt.Cursor;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -24,6 +25,7 @@ public class MiniStatement extends javax.swing.JFrame {
      */
     public MiniStatement() {
         initComponents();
+        applyCustomStyles();
     }
     
     int MyAccNumt;
@@ -32,6 +34,12 @@ public class MiniStatement extends javax.swing.JFrame {
         initComponents();
         MyAccNumt = AccNum;
         displayTransaction();
+        applyCustomStyles();
+    }
+
+    private void applyCustomStyles() {
+        jLabel7.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        jLabel9.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
     
     Connection con = null;
@@ -102,7 +110,7 @@ public class MiniStatement extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(255, 102, 51));
+        jPanel2.setBackground(new java.awt.Color(0, 102, 204));
 
         jLabel2.setFont(new java.awt.Font("Microsoft YaHei", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -149,7 +157,7 @@ public class MiniStatement extends javax.swing.JFrame {
         );
 
         jLabel6.setFont(new java.awt.Font("Microsoft YaHei", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 102, 51));
+        jLabel6.setForeground(new java.awt.Color(0, 102, 204));
         jLabel6.setText("WORLD BANK");
 
         jLabel10.setFont(new java.awt.Font("Microsoft YaHei", 1, 20)); // NOI18N
@@ -165,7 +173,7 @@ public class MiniStatement extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(255, 102, 51));
+        jPanel3.setBackground(new java.awt.Color(0, 102, 204));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -244,7 +252,7 @@ public class MiniStatement extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        System.exit(1);
+        System.exit(0);
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked

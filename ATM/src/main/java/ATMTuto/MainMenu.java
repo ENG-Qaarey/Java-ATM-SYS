@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package main.java.ATMTuto;
+package ATMTuto;
 
 /**
  *
@@ -12,12 +12,38 @@ public class MainMenu extends javax.swing.JFrame {
 
     public MainMenu() {
         initComponents();
+        applyCustomStyles();
     }
     int MyAccNum;
     public MainMenu(int AccountNum) {
         initComponents();
         MyAccNum = AccountNum;
         AccNumLb.setText(""+MyAccNum);
+        applyCustomStyles();
+    }
+
+    private void applyCustomStyles() {
+        java.awt.Color blue = new java.awt.Color(0, 102, 204);
+        java.awt.Color white = java.awt.Color.WHITE;
+        styleBtn(depositBtn, blue, white);
+        styleBtn(withdrawBtn, blue, white);
+        styleBtn(miniStatmentBtn, blue, white);
+        styleBtn(balanceBtn, blue, white);
+        styleBtn(changePinBtn, blue, white);
+        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        LogoutLb.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }
+
+    private void styleBtn(javax.swing.JButton btn, java.awt.Color bg, java.awt.Color fg) {
+        btn.setForeground(fg);
+        btn.setBackground(bg);
+        btn.setOpaque(true);
+        btn.setContentAreaFilled(true);
+        btn.setBorderPainted(true);
+        btn.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btn.setFocusPainted(false);
+        btn.setBorder(new RoundedBorder(10, bg));
+        btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     }
 
     /**
@@ -51,7 +77,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(255, 102, 51));
+        jPanel2.setBackground(new java.awt.Color(0, 102, 204));
 
         jLabel2.setFont(new java.awt.Font("Microsoft YaHei", 1, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -100,11 +126,11 @@ public class MainMenu extends javax.swing.JFrame {
         );
 
         jLabel4.setFont(new java.awt.Font("Microsoft YaHei", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 102, 51));
+        jLabel4.setForeground(new java.awt.Color(0, 102, 204));
         jLabel4.setText("Account Number : ");
 
         depositBtn.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        depositBtn.setForeground(new java.awt.Color(255, 102, 51));
+        depositBtn.setForeground(new java.awt.Color(0, 102, 204));
         depositBtn.setText("DEPOSIT");
         depositBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -118,7 +144,7 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         withdrawBtn.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        withdrawBtn.setForeground(new java.awt.Color(255, 102, 51));
+        withdrawBtn.setForeground(new java.awt.Color(0, 102, 204));
         withdrawBtn.setText("WITHDRAW");
         withdrawBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -132,7 +158,7 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         miniStatmentBtn.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        miniStatmentBtn.setForeground(new java.awt.Color(255, 102, 51));
+        miniStatmentBtn.setForeground(new java.awt.Color(0, 102, 204));
         miniStatmentBtn.setText("MINI STATEMENT");
         miniStatmentBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -146,7 +172,7 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         balanceBtn.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        balanceBtn.setForeground(new java.awt.Color(255, 102, 51));
+        balanceBtn.setForeground(new java.awt.Color(0, 102, 204));
         balanceBtn.setText("BALANCE");
         balanceBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -160,7 +186,7 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         changePinBtn.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        changePinBtn.setForeground(new java.awt.Color(255, 102, 51));
+        changePinBtn.setForeground(new java.awt.Color(0, 102, 204));
         changePinBtn.setText("CHANGE PIN");
         changePinBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -183,10 +209,10 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Microsoft YaHei", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 102, 51));
+        jLabel6.setForeground(new java.awt.Color(0, 102, 204));
         jLabel6.setText("WORLD BANK");
 
-        jPanel3.setBackground(new java.awt.Color(255, 102, 51));
+        jPanel3.setBackground(new java.awt.Color(0, 102, 204));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -329,7 +355,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_LogoutLbMouseClicked
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        System.exit(1);
+        System.exit(0);
     }//GEN-LAST:event_jLabel7MouseClicked
 
     /**

@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package main.java.ATMTuto;
+package ATMTuto;
 
+import java.awt.Color;
+import java.awt.Cursor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,11 +23,46 @@ public class ChangePin extends javax.swing.JFrame {
      */
     public ChangePin() {
         initComponents();
+        applyCustomStyles();
     }
     int MyAccNumt;
     public ChangePin(int AccNum) {
         initComponents();
         MyAccNumt = AccNum;
+        applyCustomStyles();
+    }
+
+    private void applyCustomStyles() {
+        Color gray = new Color(200, 200, 200);
+        Color white = Color.WHITE;
+        Color blue = new Color(0, 102, 204);
+        Color dark = new Color(60, 60, 60);
+
+        NewLb.setBorder(new RoundedBorder(10, gray));
+        NewLb.setOpaque(true);
+        NewLb.setBackground(white);
+        NewLb.setForeground(dark);
+        NewLb.setCaretColor(dark);
+        NewLb.setEditable(true);
+        NewLb.setCursor(new Cursor(Cursor.TEXT_CURSOR));
+
+        ConfirmLb.setBorder(new RoundedBorder(10, gray));
+        ConfirmLb.setOpaque(true);
+        ConfirmLb.setBackground(white);
+        ConfirmLb.setForeground(dark);
+        ConfirmLb.setCaretColor(dark);
+        ConfirmLb.setEditable(true);
+        ConfirmLb.setCursor(new Cursor(Cursor.TEXT_CURSOR));
+
+        balanceBtn.setForeground(white);
+        balanceBtn.setBackground(blue);
+        balanceBtn.setOpaque(true);
+        balanceBtn.setContentAreaFilled(true);
+        balanceBtn.setBorderPainted(true);
+        balanceBtn.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        balanceBtn.setFocusPainted(false);
+        balanceBtn.setBorder(new RoundedBorder(10, blue));
+        balanceBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
     /**
@@ -63,7 +100,7 @@ public class ChangePin extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(255, 102, 51));
+        jPanel3.setBackground(new java.awt.Color(0, 102, 204));
 
         jLabel4.setFont(new java.awt.Font("Microsoft YaHei", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -119,7 +156,7 @@ public class ChangePin extends javax.swing.JFrame {
         jLabel5.setText("NEW PIN : ");
 
         jLabel6.setFont(new java.awt.Font("Microsoft YaHei", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 102, 51));
+        jLabel6.setForeground(new java.awt.Color(0, 102, 204));
         jLabel6.setText("WORLD BANK");
 
         jLabel13.setFont(new java.awt.Font("Microsoft YaHei", 1, 20)); // NOI18N
@@ -130,7 +167,7 @@ public class ChangePin extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(0, 0, 255));
         jLabel14.setText("BACK");
 
-        jPanel5.setBackground(new java.awt.Color(255, 102, 51));
+        jPanel5.setBackground(new java.awt.Color(0, 102, 204));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -148,7 +185,7 @@ public class ChangePin extends javax.swing.JFrame {
         jLabel15.setText("CONFIRM PIN : ");
 
         balanceBtn.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
-        balanceBtn.setForeground(new java.awt.Color(255, 102, 51));
+        balanceBtn.setForeground(new java.awt.Color(0, 102, 204));
         balanceBtn.setText("CHANGE");
         balanceBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -162,10 +199,10 @@ public class ChangePin extends javax.swing.JFrame {
         });
 
         NewLb.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        NewLb.setForeground(new java.awt.Color(255, 102, 51));
+        NewLb.setForeground(new java.awt.Color(0, 102, 204));
 
         ConfirmLb.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        ConfirmLb.setForeground(new java.awt.Color(255, 102, 51));
+        ConfirmLb.setForeground(new java.awt.Color(0, 102, 204));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -292,7 +329,7 @@ public class ChangePin extends javax.swing.JFrame {
     }//GEN-LAST:event_balanceBtnMouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-        System.exit(1);
+        System.exit(0);
     }//GEN-LAST:event_jLabel9MouseClicked
 
     /**

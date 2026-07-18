@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package main.java.ATMTuto;
+package ATMTuto;
 
+import java.awt.Color;
+import java.awt.Cursor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,12 +23,39 @@ public class Withdraw extends javax.swing.JFrame {
      */
     public Withdraw() {
         initComponents();
+        applyCustomStyles();
     }
     int MyAccNumt;
     public Withdraw(int AccNum) {
         initComponents();
         MyAccNumt = AccNum;
         getBalance();
+        applyCustomStyles();
+    }
+
+    private void applyCustomStyles() {
+        Color gray = new Color(200, 200, 200);
+        Color white = Color.WHITE;
+        Color blue = new Color(0, 102, 204);
+        Color dark = new Color(60, 60, 60);
+
+        AmountTb.setBorder(new RoundedBorder(10, gray));
+        AmountTb.setOpaque(true);
+        AmountTb.setBackground(white);
+        AmountTb.setForeground(dark);
+        AmountTb.setCaretColor(dark);
+        AmountTb.setEditable(true);
+        AmountTb.setCursor(new Cursor(Cursor.TEXT_CURSOR));
+
+        balanceBtn.setForeground(white);
+        balanceBtn.setBackground(blue);
+        balanceBtn.setOpaque(true);
+        balanceBtn.setContentAreaFilled(true);
+        balanceBtn.setBorderPainted(true);
+        balanceBtn.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        balanceBtn.setFocusPainted(false);
+        balanceBtn.setBorder(new RoundedBorder(10, blue));
+        balanceBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
     Connection con = null;
     ResultSet Rs = null, Rs1=null;
@@ -83,7 +112,7 @@ public class Withdraw extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(255, 102, 51));
+        jPanel2.setBackground(new java.awt.Color(0, 51, 255));
 
         jLabel2.setFont(new java.awt.Font("Microsoft YaHei", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -134,11 +163,11 @@ public class Withdraw extends javax.swing.JFrame {
         jLabel5.setText("AMOUNT : ");
 
         jLabel6.setFont(new java.awt.Font("Microsoft YaHei", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 102, 51));
+        jLabel6.setForeground(new java.awt.Color(0, 153, 255));
         jLabel6.setText("WORLD BANK");
 
         AmountTb.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        AmountTb.setForeground(new java.awt.Color(255, 102, 51));
+        AmountTb.setForeground(new java.awt.Color(0, 102, 204));
 
         jLabel10.setFont(new java.awt.Font("Microsoft YaHei", 1, 20)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 255));
@@ -154,7 +183,7 @@ public class Withdraw extends javax.swing.JFrame {
         });
 
         balanceBtn.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
-        balanceBtn.setForeground(new java.awt.Color(255, 102, 51));
+        balanceBtn.setForeground(new java.awt.Color(0, 153, 255));
         balanceBtn.setText("WITHDRAW");
         balanceBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -167,7 +196,7 @@ public class Withdraw extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(255, 102, 51));
+        jPanel3.setBackground(new java.awt.Color(0, 51, 255));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -181,7 +210,7 @@ public class Withdraw extends javax.swing.JFrame {
         );
 
         jLabel11.setFont(new java.awt.Font("Microsoft YaHei", 0, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 102, 51));
+        jLabel11.setForeground(new java.awt.Color(0, 153, 255));
         jLabel11.setText("Your Balance : ");
 
         BalanceLb.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -345,7 +374,7 @@ public class Withdraw extends javax.swing.JFrame {
     }//GEN-LAST:event_balanceBtnMouseClicked
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        System.exit(1);
+        System.exit(0);
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void BackLbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackLbMouseClicked

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AccountsReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="18" bottomMargin="18" uuid="00000002-1001-4001-8001-000000000001">
+	<property name="ireport.zoom" value="1.0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     Accounts.`AccountNumber` AS Accounts_AccountNumber,
+     Accounts.`FullName` AS Accounts_FullName,
+     Accounts.`Occupation` AS Accounts_Occupation,
+     Accounts.`Phone` AS Accounts_Phone,
+     Accounts.`Balance` AS Accounts_Balance,
+     CASE WHEN Accounts.`IsActive` = 1 THEN 'Active' ELSE 'Inactive' END AS Accounts_Active
+FROM
+     `Accounts` Accounts
+ORDER BY Accounts.`AccountNumber`]]>
+	</queryString>
+	<field name="Accounts_AccountNumber" class="java.lang.Integer"/>
+	<field name="Accounts_FullName" class="java.lang.String"/>
+	<field name="Accounts_Occupation" class="java.lang.String"/>
+	<field name="Accounts_Phone" class="java.lang.String"/>
+	<field name="Accounts_Balance" class="java.lang.Integer"/>
+	<field name="Accounts_Active" class="java.lang.String"/>
+	<variable name="TotalBalance" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{Accounts_Balance}]]></variableExpression>
+		<initialValueExpression><![CDATA[Integer.valueOf(0)]]></initialValueExpression>
+	</variable>
+	<variable name="AccountCount" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{Accounts_AccountNumber}]]></variableExpression>
+		<initialValueExpression><![CDATA[Integer.valueOf(0)]]></initialValueExpression>
+	</variable>
+	<title>
+		<band height="128">
+			<rectangle>
+				<reportElement mode="Opaque" x="-20" y="-18" width="595" height="128" backcolor="#062A5A" uuid="00000003-1001-4001-8001-000000000002"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="-20" y="92" width="595" height="18" backcolor="#1E90FF" uuid="00000004-1001-4001-8001-000000000003"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="6" width="555" height="16" forecolor="#7EC8FF" uuid="00000005-1001-4001-8001-000000000004"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[WORLD BANK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="26" width="555" height="36" forecolor="#FFFFFF" uuid="00000006-1001-4001-8001-000000000005"/>
+				<textElement textAlignment="Center">
+					<font size="28" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUSTOMER ACCOUNTS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="64" width="555" height="16" forecolor="#B8D9FF" uuid="00000007-1001-4001-8001-000000000006"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[ATM Management System  •  Registered Account Directory]]></text>
+			</staticText>
+			<textField pattern="EEEE, dd MMMM yyyy  |  HH:mm">
+				<reportElement x="0" y="94" width="555" height="14" forecolor="#FFFFFF" uuid="00000008-1001-4001-8001-000000000007"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="12"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="32" backcolor="#0D47A1" uuid="00000009-1001-4001-8001-000000000008"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="6" width="70" height="20" forecolor="#FFFFFF" uuid="0000000a-1001-4001-8001-000000000009"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACC NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="74" y="6" width="140" height="20" forecolor="#FFFFFF" uuid="0000000b-1001-4001-8001-00000000000a"/>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUSTOMER NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="214" y="6" width="110" height="20" forecolor="#FFFFFF" uuid="0000000c-1001-4001-8001-00000000000b"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OCCUPATION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="6" width="90" height="20" forecolor="#FFFFFF" uuid="0000000d-1001-4001-8001-00000000000c"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PHONE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="6" width="75" height="20" forecolor="#FFFFFF" uuid="0000000e-1001-4001-8001-00000000000d"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BALANCE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="489" y="6" width="62" height="20" forecolor="#FFFFFF" uuid="0000000f-1001-4001-8001-00000000000e"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[STATUS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="26" backcolor="#E3F2FD" uuid="00000010-1001-4001-8001-00000000000f">
+					<printWhenExpression><![CDATA[$V{REPORT_COUNT} % 2 == 1]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="26" backcolor="#FFFFFF" uuid="00000011-1001-4001-8001-000000000010">
+					<printWhenExpression><![CDATA[$V{REPORT_COUNT} % 2 == 0]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="25" width="555" height="1" forecolor="#BBDEFB" uuid="00000012-1001-4001-8001-000000000011"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4" y="3" width="70" height="20" forecolor="#0D47A1" uuid="00000013-1001-4001-8001-000000000012"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Accounts_AccountNumber}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="74" y="3" width="140" height="20" forecolor="#212121" uuid="00000014-1001-4001-8001-000000000013"/>
+				<textElement textAlignment="Left">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Accounts_FullName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="214" y="3" width="110" height="20" forecolor="#424242" uuid="00000015-1001-4001-8001-000000000014"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Accounts_Occupation} == null ? "-" : $F{Accounts_Occupation}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="324" y="3" width="90" height="20" forecolor="#424242" uuid="00000016-1001-4001-8001-000000000015"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Accounts_Phone} == null ? "-" : $F{Accounts_Phone}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" pattern="#,##0">
+				<reportElement x="414" y="3" width="75" height="20" forecolor="#1565C0" uuid="00000017-1001-4001-8001-000000000016"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Accounts_Balance}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="489" y="3" width="62" height="20" uuid="00000018-1001-4001-8001-000000000017"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Accounts_Active}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="4"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="30">
+			<rectangle>
+				<reportElement mode="Opaque" x="-20" y="8" width="595" height="22" backcolor="#062A5A" uuid="00000019-1001-4001-8001-000000000018"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="12" width="300" height="14" forecolor="#90CAF9" uuid="0000001a-1001-4001-8001-000000000019"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Confidential  •  World Bank ATM Administration]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="320" y="12" width="230" height="14" forecolor="#FFFFFF" uuid="0000001b-1001-4001-8001-00000000001a"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="88">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="10" width="270" height="68" backcolor="#E3F2FD" uuid="0000001c-1001-4001-8001-00000000001b"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineColor="#0D47A1"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="285" y="10" width="270" height="68" backcolor="#062A5A" uuid="0000001d-1001-4001-8001-00000000001c"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="12" y="18" width="240" height="16" forecolor="#0D47A1" uuid="0000001e-1001-4001-8001-00000000001d"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL ACCOUNTS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="12" y="40" width="240" height="28" forecolor="#0D47A1" uuid="0000001f-1001-4001-8001-00000000001e"/>
+				<textElement>
+					<font size="22" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{AccountCount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="18" width="240" height="16" forecolor="#90CAF9" uuid="00000020-1001-4001-8001-00000000001f"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL BALANCE]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="297" y="40" width="240" height="28" forecolor="#FFFFFF" uuid="00000021-1001-4001-8001-000000000020"/>
+				<textElement>
+					<font size="22" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TotalBalance}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

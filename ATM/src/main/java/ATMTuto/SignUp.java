@@ -1,262 +1,363 @@
-package main.java.ATMTuto;
+package ATMTuto;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
-public class SignUp extends javax.swing.JFrame {
+/**
+ * Signup form matching the classic ATM signup layout (blue theme).
+ */
+public class SignUp extends JFrame {
+
+    private final Color themeBlue = new Color(0, 102, 204);
+    private final Color labelBlue = new Color(0, 51, 204);
+    private final Color white = Color.WHITE;
+    private final Color dark = new Color(40, 40, 40);
+
+    private JTextField AccNumTb;
+    private JTextField AccNameTb;
+    private JTextField FatherNameTb;
+    private JTextField DobTb;
+    private JTextField PinTb;
+    private JComboBox<String> EducationCb;
+    private JTextField OccupationTb;
+    private JTextField PhoneTb;
+    private JTextField AddressTb;
+    private JButton SubmitBtn;
 
     public SignUp() {
-        initComponents();
+        initUi();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
-    @SuppressWarnings("unchecked")
-    private void initComponents() {
-
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        AccNumTb = new javax.swing.JTextField();
-        SubmitBtn = new javax.swing.JButton();
-        AccNameTb = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        PinTb = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(360, 180));
+    private void initUi() {
+        setTitle("ATM Signup");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setSize(760, 560);
+        setLayout(new BorderLayout());
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-
-        jPanel4.setBackground(new java.awt.Color(255, 102, 51));
-
-        jLabel3.setFont(new java.awt.Font("Microsoft YaHei", 1, 24));
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("ATM MANAGEMENT SYSTEM");
-
-        jLabel8.setBackground(new java.awt.Color(255, 0, 102));
-        jLabel8.setFont(new java.awt.Font("Microsoft YaHei", 0, 36));
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("x");
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel8MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(207, 207, 207)
-                .addComponent(jLabel8)
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
-        );
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel5.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel5.setText("ACCOUNT NUMBER :");
-
-        jLabel6.setFont(new java.awt.Font("Microsoft YaHei", 1, 18));
-        jLabel6.setForeground(new java.awt.Color(255, 102, 51));
-        jLabel6.setText("WORLD BANK");
-
-        AccNumTb.setFont(new java.awt.Font("Tahoma", 0, 14));
-        AccNumTb.setForeground(new java.awt.Color(255, 102, 51));
-
-        SubmitBtn.setFont(new java.awt.Font("Arial", 1, 18));
-        SubmitBtn.setForeground(new java.awt.Color(255, 102, 51));
-        SubmitBtn.setText("Submit");
-        SubmitBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SubmitBtnMouseClicked(evt);
-            }
-        });
-        SubmitBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SubmitBtnActionPerformed(evt);
-            }
-        });
-
-        AccNameTb.setFont(new java.awt.Font("Tahoma", 0, 14));
-        AccNameTb.setForeground(new java.awt.Color(255, 102, 51));
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel10.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel10.setText("FULL NAME :");
-
-        PinTb.setFont(new java.awt.Font("Tahoma", 0, 14));
-        PinTb.setForeground(new java.awt.Color(255, 102, 51));
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel9.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel9.setText("PIN :");
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 20));
-        jLabel1.setForeground(new java.awt.Color(255, 102, 51));
-        jLabel1.setText("SIGNUP FORM");
-
-        jPanel1.setBackground(new java.awt.Color(255, 102, 51));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(AccNumTb, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                    .addComponent(AccNameTb, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                    .addComponent(PinTb, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                .addContainerGap(140, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(256, 256, 256))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(SubmitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(273, 273, 273))))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(AccNumTb, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(AccNameTb, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(PinTb, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addComponent(SubmitBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        pack();
+        add(buildHeader(), BorderLayout.NORTH);
+        add(buildBody(), BorderLayout.CENTER);
+        add(buildFooter(), BorderLayout.SOUTH);
     }
 
-    private void SubmitBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    private JPanel buildHeader() {
+        JPanel header = new JPanel(new BorderLayout());
+        header.setBackground(themeBlue);
+        header.setPreferredSize(new Dimension(0, 70));
+
+        JLabel title = new JLabel("ATM MANAGEMENT SYSTEM", SwingConstants.CENTER);
+        title.setFont(new Font("Tahoma", Font.BOLD, 26));
+        title.setForeground(white);
+
+        JLabel close = new JLabel(" x ", SwingConstants.CENTER);
+        close.setFont(new Font("Tahoma", Font.BOLD, 22));
+        close.setForeground(white);
+        close.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        close.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                System.exit(0);
+            }
+        });
+
+        header.add(title, BorderLayout.CENTER);
+        header.add(close, BorderLayout.EAST);
+        return header;
     }
 
-    Connection con = null;
-    PreparedStatement put = null;
-    ResultSet Rs = null;
-    Statement st = null;
-    
-    private void clear(){
+    private JPanel buildBody() {
+        JPanel body = new JPanel(new BorderLayout());
+        body.setBackground(white);
+        body.setBorder(BorderFactory.createEmptyBorder(18, 36, 10, 36));
+
+        JLabel formTitle = new JLabel("SIGNUP FORM", SwingConstants.CENTER);
+        formTitle.setFont(new Font("Tahoma", Font.BOLD, 22));
+        formTitle.setForeground(themeBlue);
+        formTitle.setBorder(BorderFactory.createEmptyBorder(0, 0, 18, 0));
+        body.add(formTitle, BorderLayout.NORTH);
+
+        JPanel form = new JPanel(new GridBagLayout());
+        form.setOpaque(false);
+
+        AccNumTb = textField();
+        AccNameTb = textField();
+        FatherNameTb = textField();
+        DobTb = textField();
+        PinTb = textField();
+        OccupationTb = textField();
+        PhoneTb = textField();
+        AddressTb = textField();
+
+        EducationCb = new JComboBox<String>(new String[]{
+            "Uneducated", "Primary", "Secondary", "Diploma", "Graduate", "Post Graduate"
+        });
+        EducationCb.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        EducationCb.setForeground(themeBlue);
+        EducationCb.setBackground(white);
+        EducationCb.setPreferredSize(new Dimension(180, 28));
+
+        int row = 0;
+        // Left column / Right column pairs
+        row = addPairRow(form, row,
+                "ACC NUM :", AccNumTb,
+                "PIN :", PinTb);
+        row = addPairRow(form, row,
+                "NAME :", AccNameTb,
+                "EDUCATION :", EducationCb);
+        row = addPairRow(form, row,
+                "FATHER'S NAME :", FatherNameTb,
+                "OCCUPATION :", OccupationTb);
+        row = addPairRow(form, row,
+                "DOB :", DobTb,
+                "PHONE :", PhoneTb);
+
+        // Address full width
+        GridBagConstraints labGbc = gbc(0, row, GridBagConstraints.EAST);
+        labGbc.insets = new Insets(12, 6, 8, 8);
+        form.add(fieldLabel("ADDRESS :"), labGbc);
+
+        GridBagConstraints addrGbc = gbc(1, row, GridBagConstraints.WEST);
+        addrGbc.gridwidth = 3;
+        addrGbc.fill = GridBagConstraints.HORIZONTAL;
+        addrGbc.weightx = 1;
+        addrGbc.insets = new Insets(12, 4, 8, 6);
+        AddressTb.setPreferredSize(new Dimension(460, 28));
+        form.add(AddressTb, addrGbc);
+        row++;
+
+        // Submit
+        SubmitBtn = new JButton("Submit");
+        SubmitBtn.setFont(new Font("Tahoma", Font.BOLD, 16));
+        SubmitBtn.setForeground(themeBlue);
+        SubmitBtn.setBackground(white);
+        SubmitBtn.setFocusPainted(false);
+        SubmitBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        SubmitBtn.setPreferredSize(new Dimension(120, 34));
+        SubmitBtn.addActionListener(e -> submitSignup());
+
+        GridBagConstraints btnGbc = gbc(0, row, GridBagConstraints.CENTER);
+        btnGbc.gridwidth = 4;
+        btnGbc.insets = new Insets(22, 0, 8, 0);
+        form.add(SubmitBtn, btnGbc);
+        row++;
+
+        JLabel bank = new JLabel("WORLD BANK", SwingConstants.CENTER);
+        bank.setFont(new Font("Tahoma", Font.BOLD, 18));
+        bank.setForeground(themeBlue);
+        GridBagConstraints bankGbc = gbc(0, row, GridBagConstraints.CENTER);
+        bankGbc.gridwidth = 4;
+        bankGbc.insets = new Insets(8, 0, 4, 0);
+        form.add(bank, bankGbc);
+
+        // Back to login link
+        JLabel back = new JLabel("Already have an account? Login", SwingConstants.CENTER);
+        back.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        back.setForeground(labelBlue);
+        back.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        back.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                dispose();
+                new Login().setVisible(true);
+            }
+        });
+        GridBagConstraints backGbc = gbc(0, row + 1, GridBagConstraints.CENTER);
+        backGbc.gridwidth = 4;
+        backGbc.insets = new Insets(6, 0, 0, 0);
+        form.add(back, backGbc);
+
+        body.add(form, BorderLayout.CENTER);
+        return body;
+    }
+
+    private int addPairRow(JPanel form, int row,
+            String leftLabel, java.awt.Component leftField,
+            String rightLabel, java.awt.Component rightField) {
+        GridBagConstraints l1 = gbc(0, row, GridBagConstraints.EAST);
+        l1.insets = new Insets(8, 6, 8, 8);
+        form.add(fieldLabel(leftLabel), l1);
+
+        GridBagConstraints f1 = gbc(1, row, GridBagConstraints.WEST);
+        f1.insets = new Insets(8, 4, 8, 18);
+        leftField.setPreferredSize(new Dimension(180, 28));
+        form.add(leftField, f1);
+
+        GridBagConstraints l2 = gbc(2, row, GridBagConstraints.EAST);
+        l2.insets = new Insets(8, 10, 8, 8);
+        form.add(fieldLabel(rightLabel), l2);
+
+        GridBagConstraints f2 = gbc(3, row, GridBagConstraints.WEST);
+        f2.insets = new Insets(8, 4, 8, 6);
+        rightField.setPreferredSize(new Dimension(180, 28));
+        form.add(rightField, f2);
+
+        return row + 1;
+    }
+
+    private GridBagConstraints gbc(int x, int y, int anchor) {
+        GridBagConstraints g = new GridBagConstraints();
+        g.gridx = x;
+        g.gridy = y;
+        g.anchor = anchor;
+        return g;
+    }
+
+    private JLabel fieldLabel(String text) {
+        JLabel lb = new JLabel(text);
+        lb.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lb.setForeground(labelBlue);
+        return lb;
+    }
+
+    private JTextField textField() {
+        JTextField tf = new JTextField();
+        tf.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        tf.setForeground(dark);
+        tf.setBackground(white);
+        tf.setBorder(BorderFactory.createLineBorder(new Color(160, 160, 160)));
+        return tf;
+    }
+
+    private JPanel buildFooter() {
+        JPanel footer = new JPanel(new FlowLayout());
+        footer.setBackground(themeBlue);
+        footer.setPreferredSize(new Dimension(0, 12));
+        return footer;
+    }
+
+    private void clear() {
         AccNumTb.setText("");
         AccNameTb.setText("");
+        FatherNameTb.setText("");
+        DobTb.setText("");
         PinTb.setText("");
+        EducationCb.setSelectedIndex(0);
+        OccupationTb.setText("");
+        PhoneTb.setText("");
+        AddressTb.setText("");
     }
-    
-    private void SubmitBtnMouseClicked(java.awt.event.MouseEvent evt) {
-        if(AccNumTb.getText().isEmpty() || AccNameTb.getText().isEmpty() || PinTb.getText().isEmpty()){
+
+    private boolean accountExists(Connection connection, int accountNumber) throws Exception {
+        PreparedStatement check = connection.prepareStatement(
+                "SELECT AccountNumber FROM Accounts WHERE AccountNumber = ?");
+        check.setInt(1, accountNumber);
+        ResultSet rs = check.executeQuery();
+        boolean exists = rs.next();
+        rs.close();
+        check.close();
+        return exists;
+    }
+
+    private void submitSignup() {
+        if (AccNumTb.getText().trim().isEmpty()
+                || AccNameTb.getText().trim().isEmpty()
+                || FatherNameTb.getText().trim().isEmpty()
+                || DobTb.getText().trim().isEmpty()
+                || PinTb.getText().trim().isEmpty()
+                || OccupationTb.getText().trim().isEmpty()
+                || PhoneTb.getText().trim().isEmpty()
+                || AddressTb.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Missing Information!");
-        }else{
-            try{
-                con = DBConnection.getConnection();
-                if (con == null) {
-                    JOptionPane.showMessageDialog(this, "Database connection failed.");
-                    return;
-                }
-                PreparedStatement Add = con.prepareStatement("insert into Accounts (AccountNumber, FullName, Pin, Balance, IsActive) values(?, ?, ?, 0, 1)");
-                Add.setInt(1, Integer.valueOf(AccNumTb.getText()));
-                Add.setString(2, AccNameTb.getText());
-                Add.setInt(3, Integer.valueOf(PinTb.getText()));
-                int row = Add.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Account Saved");
+            return;
+        }
+
+        int accountNumber;
+        int pin;
+        try {
+            accountNumber = Integer.parseInt(AccNumTb.getText().trim());
+            pin = Integer.parseInt(PinTb.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Account Number and PIN must be numbers.");
+            return;
+        }
+
+        try {
+            Connection con = DBConnection.getConnection();
+            if (con == null) {
+                return;
+            }
+
+            ensureAccountColumns(con);
+
+            if (accountExists(con, accountNumber)) {
+                JOptionPane.showMessageDialog(this,
+                        "Account number " + accountNumber + " already exists.\nPlease choose a different account number.");
+                AccNumTb.requestFocus();
                 con.close();
-                JOptionPane.showMessageDialog(this, "Your Account Number is "+AccNumTb.getText()+" and your Pin is "+PinTb.getText()+".\n Login to access your Account.");
-                clear();
-                this.dispose();
-                new Login().setVisible(true);
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(this, e);
+                return;
+            }
+
+            PreparedStatement add = con.prepareStatement(
+                    "INSERT INTO Accounts "
+                    + "(AccountNumber, FullName, FatherName, DOB, Pin, Education, Occupation, Phone, Address, Balance, IsActive) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 1)");
+            add.setInt(1, accountNumber);
+            add.setString(2, AccNameTb.getText().trim());
+            add.setString(3, FatherNameTb.getText().trim());
+            add.setString(4, DobTb.getText().trim());
+            add.setInt(5, pin);
+            add.setString(6, String.valueOf(EducationCb.getSelectedItem()));
+            add.setString(7, OccupationTb.getText().trim());
+            add.setString(8, PhoneTb.getText().trim());
+            add.setString(9, AddressTb.getText().trim());
+            add.executeUpdate();
+            add.close();
+            con.close();
+
+            JOptionPane.showMessageDialog(this, "Account Saved");
+            JOptionPane.showMessageDialog(this,
+                    "Your Account Number is " + accountNumber + " and your Pin is " + pin
+                    + ".\nLogin to access your Account.");
+            clear();
+            dispose();
+            new Login().setVisible(true);
+        } catch (java.sql.SQLIntegrityConstraintViolationException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Account number already exists.\nPlease choose a different account number.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Could not create account: " + e.getMessage());
+        }
+    }
+
+    /** Adds signup profile columns if the database was created with the old schema. */
+    private void ensureAccountColumns(Connection con) {
+        String[] alters = new String[]{
+            "ALTER TABLE Accounts ADD COLUMN FatherName VARCHAR(100) NULL",
+            "ALTER TABLE Accounts ADD COLUMN DOB VARCHAR(30) NULL",
+            "ALTER TABLE Accounts ADD COLUMN Education VARCHAR(50) NULL",
+            "ALTER TABLE Accounts ADD COLUMN Occupation VARCHAR(100) NULL",
+            "ALTER TABLE Accounts ADD COLUMN Phone VARCHAR(30) NULL",
+            "ALTER TABLE Accounts ADD COLUMN Address VARCHAR(255) NULL"
+        };
+        for (String sql : alters) {
+            try {
+                con.createStatement().execute(sql);
+            } catch (Exception ignored) {
+                // Column already exists
             }
         }
     }
 
-    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {
-        System.exit(1);
+    public static void main(String[] args) {
+        new SignUp();
     }
-
-    // Variables declaration
-    private javax.swing.JTextField AccNameTb;
-    private javax.swing.JTextField AccNumTb;
-    private javax.swing.JTextField PinTb;
-    private javax.swing.JButton SubmitBtn;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
 }

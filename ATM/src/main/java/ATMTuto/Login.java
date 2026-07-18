@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package main.java.ATMTuto;
+package ATMTuto;
 
+import java.awt.Color;
+import java.awt.Cursor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,10 +23,65 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        UAccNumTb.setOpaque(true);
-        UAccNumTb.setBackground(java.awt.Color.WHITE);
-        PasswordTb.setOpaque(true);
-        PasswordTb.setBackground(java.awt.Color.WHITE);
+        applyCustomStyles();
+    }
+
+    private void applyCustomStyles() {
+        Color blue = new Color(0, 102, 204);
+        Color gray = new Color(200, 200, 200);
+        Color white = Color.WHITE;
+        Color dark = new Color(60, 60, 60);
+
+        styleTextField(UAccNumTb, gray, white, dark);
+        styleTextField(PasswordTb, gray, white, dark);
+
+        jLabel5.setForeground(new Color(85, 85, 85));
+        jLabel9.setForeground(new Color(85, 85, 85));
+        jLabel10.setForeground(new Color(50, 50, 50));
+
+        styleButton(LoginBtn, blue, white, blue);
+        styleButton(SignUpBtn, white, blue, blue);
+
+        jLabel5.setText("USERNAME / ACCOUNT NO :");
+        jLabel9.setText("PASSWORD / PIN :");
+        jLabel10.setText("LOGIN");
+
+        jLabel7.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }
+
+    private void styleTextField(javax.swing.JTextField field, Color border, Color bg, Color fg) {
+        field.setBorder(new RoundedBorder(10, border));
+        field.setOpaque(true);
+        field.setBackground(bg);
+        field.setForeground(fg);
+        field.setCaretColor(fg);
+        field.setEditable(true);
+        field.setEnabled(true);
+        field.setCursor(new Cursor(Cursor.TEXT_CURSOR));
+    }
+
+    private void styleButton(javax.swing.JButton btn, Color bg, Color fg, Color border) {
+        btn.setForeground(fg);
+        btn.setBackground(bg);
+        btn.setOpaque(true);
+        btn.setContentAreaFilled(true);
+        btn.setBorderPainted(true);
+        btn.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btn.setFocusPainted(false);
+        btn.setBorder(new RoundedBorder(10, border));
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        int r = Math.max(0, bg.getRed() - 30);
+        int g = Math.max(0, bg.getGreen() - 30);
+        int b = Math.max(0, bg.getBlue() - 30);
+        Color hover = new Color(r, g, b);
+        btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn.setBackground(hover);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn.setBackground(bg);
+            }
+        });
     }
 
     /**
@@ -56,7 +113,7 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(255, 102, 51));
+        jPanel2.setBackground(new java.awt.Color(0, 51, 255));
 
         jLabel2.setFont(new java.awt.Font("Microsoft YaHei", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -98,7 +155,7 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setText("ACCOUNT NUMBER :");
 
         jLabel6.setFont(new java.awt.Font("Microsoft YaHei", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 102, 51));
+        jLabel6.setForeground(new java.awt.Color(0, 51, 255));
         jLabel6.setText("WORLD BANK");
 
         PasswordTb.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -120,7 +177,7 @@ public class Login extends javax.swing.JFrame {
         jLabel9.setText("PIN :");
 
         SignUpBtn.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        SignUpBtn.setForeground(new java.awt.Color(255, 102, 51));
+        SignUpBtn.setForeground(new java.awt.Color(0, 51, 255));
         SignUpBtn.setText(" SIGN UP");
         SignUpBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -134,7 +191,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         LoginBtn.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        LoginBtn.setForeground(new java.awt.Color(255, 102, 51));
+        LoginBtn.setForeground(new java.awt.Color(0, 51, 255));
         LoginBtn.setText("LOGIN");
         LoginBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -147,7 +204,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(255, 102, 51));
+        jPanel3.setBackground(new java.awt.Color(0, 51, 255));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -226,7 +283,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,6 +291,7 @@ public class Login extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void SignUpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpBtnActionPerformed
@@ -241,7 +299,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_SignUpBtnActionPerformed
 
     private void LoginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginBtnActionPerformed
-        // TODO add your handling code here:
+        attemptLogin();
     }//GEN-LAST:event_LoginBtnActionPerformed
 
     private void SignUpBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignUpBtnMouseClicked
@@ -255,37 +313,70 @@ public class Login extends javax.swing.JFrame {
     Statement st = null;
     
     private void LoginBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginBtnMouseClicked
-        if(UAccNumTb.getText().isEmpty() || PasswordTb.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Enter Account and Pin Number.");
-        }else{
-            try{
-                con = DBConnection.getConnection();
-                if (con == null) {
-                    JOptionPane.showMessageDialog(this, "Database connection failed.");
-                    return;
-                }
-                PreparedStatement ps = con.prepareStatement("Select AccountNumber from Accounts where AccountNumber = ? and Pin = ?");
-                ps.setString(1, UAccNumTb.getText());
-                ps.setString(2, PasswordTb.getText());
-                Rs = ps.executeQuery();
-                if(Rs.next()){
-                    new MainMenu(Rs.getInt("AccountNumber")).setVisible(true);
-                    this.dispose();
-                }else{
-                    JOptionPane.showMessageDialog(this, "Inavlid Account Number or Pin!");
-                } 
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(this, e);
-            }
-        }
+        attemptLogin();
     }//GEN-LAST:event_LoginBtnMouseClicked
+
+    private void attemptLogin() {
+        String userOrAccount = UAccNumTb.getText().trim();
+        String passwordOrPin = new String(PasswordTb.getPassword());
+
+        if (userOrAccount.isEmpty() || passwordOrPin.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter Username/Account Number and Password/PIN.");
+            return;
+        }
+
+        try {
+            con = DBConnection.getConnection();
+            if (con == null) {
+                JOptionPane.showMessageDialog(this, "Database connection failed.");
+                return;
+            }
+
+            // One login page: try admin first, then customer account
+            PreparedStatement adminPs = con.prepareStatement(
+                    "SELECT Username, FullName FROM Admins WHERE Username = ? AND Password = ? AND IsActive = 1");
+            adminPs.setString(1, userOrAccount);
+            adminPs.setString(2, passwordOrPin);
+            ResultSet adminRs = adminPs.executeQuery();
+            if (adminRs.next()) {
+                String username = adminRs.getString("Username");
+                String name = adminRs.getString("FullName");
+                adminRs.close();
+                adminPs.close();
+                con.close();
+                dispose();
+                new AdminDashboard(username, name);
+                return;
+            }
+            adminRs.close();
+            adminPs.close();
+
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT AccountNumber FROM Accounts WHERE AccountNumber = ? AND Pin = ? AND IsActive = 1");
+            ps.setString(1, userOrAccount);
+            ps.setString(2, passwordOrPin);
+            Rs = ps.executeQuery();
+            if (Rs.next()) {
+                int accountNumber = Rs.getInt("AccountNumber");
+                Rs.close();
+                ps.close();
+                con.close();
+                new MainMenu(accountNumber).setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid login credentials!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
 
     private void UAccNumTbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UAccNumTbActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UAccNumTbActionPerformed
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        System.exit(1);
+        System.exit(0);
     }//GEN-LAST:event_jLabel7MouseClicked
 
     /**
